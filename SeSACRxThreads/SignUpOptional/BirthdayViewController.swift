@@ -7,6 +7,8 @@
  
 import UIKit
 import SnapKit
+import RxSwift
+import RxCocoa
 
 class BirthdayViewController: UIViewController {
     
@@ -30,13 +32,12 @@ class BirthdayViewController: UIViewController {
         let stack = UIStackView()
         stack.axis = .horizontal
         stack.distribution = .equalSpacing
-        stack.spacing = 10 
+        stack.spacing = 10
         return stack
     }()
     
     let yearLabel: UILabel = {
        let label = UILabel()
-        label.text = "2023년"
         label.textColor = Color.black
         label.snp.makeConstraints {
             $0.width.equalTo(100)
@@ -46,7 +47,6 @@ class BirthdayViewController: UIViewController {
     
     let monthLabel: UILabel = {
        let label = UILabel()
-        label.text = "33월"
         label.textColor = Color.black
         label.snp.makeConstraints {
             $0.width.equalTo(100)
@@ -56,7 +56,6 @@ class BirthdayViewController: UIViewController {
     
     let dayLabel: UILabel = {
        let label = UILabel()
-        label.text = "99일"
         label.textColor = Color.black
         label.snp.makeConstraints {
             $0.width.equalTo(100)
@@ -66,6 +65,12 @@ class BirthdayViewController: UIViewController {
   
     let nextButton = PointButton(title: "가입하기")
     
+    let year = PublishSubject<Int>() /*BehaviorSubject(value: 2024)*/ // Observable.just(2024)
+    let month = PublishSubject<Int>() /*BehaviorSubject(value: 3)*/ //Observable.just(3)
+    let day = PublishSubject<Int>() //Observable.just(29)
+    
+    let disposeBag = DisposeBag()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -73,13 +78,96 @@ class BirthdayViewController: UIViewController {
         
         configureLayout()
         
-        nextButton.addTarget(self, action: #selector(nextButtonClicked), for: .touchUpInside)
+        bind()
+        test2()
     }
     
-    @objc func nextButtonClicked() {
-        print("가입완료")
-    }
+    func test() {
+        let publish = PublishSubject<Int>()
+        
+        publish.onNext(1)
+        publish.onNext(2)
+        
+        publish.subscribe { value in
+            print("publish - \(value)")
+        } onError: { error in
+            print("onError")
+        } onCompleted: {
+            print("onCompleted")
+        } onDisposed: {
+            print("onDisposed")
+        }
+        .disposed(by: disposeBag)
 
+        publish.onNext(3)
+        publish.onNext(4)
+        
+        publish.onCompleted()
+        
+        publish.onNext(5)
+        publish.onNext(6)
+    }
+    
+    func test2() {
+        let publish = BehaviorSubject(value: 23)
+        
+        publish.onNext(1)
+        publish.onNext(2)   // 구독하기 직전 마지막 값을 전달하는 게 BehaviorSubject의 특성
+        
+        publish.subscribe { value in
+            print("publish - \(value)")
+        } onError: { error in
+            print("onError")
+        } onCompleted: {
+            print("onCompleted")
+        } onDisposed: {
+            print("onDisposed")
+        }
+        .disposed(by: disposeBag)
+
+        publish.onNext(3)
+        publish.onNext(4)
+        
+        publish.onCompleted()
+        
+        publish.onNext(5)
+        publish.onNext(6)
+    }
+    
+    func bind() {
+        year
+            .observe(on: MainScheduler.instance)    // 메인에서 동작할 수 도록
+            .subscribe(with: self) { owner, value in
+                owner.yearLabel.text = "\(value)년"
+            }
+            .disposed(by: disposeBag)
+        
+        month
+            .map { "\($0)월" }
+            .observe(on: MainScheduler.instance)    // 메인에서 동작할 수 도록
+            .subscribe(with: self) { owner, value in
+                owner.monthLabel.text = value
+            }
+            .disposed(by: disposeBag)
+        
+        day
+            .map { "\($0)일" }
+            .bind(to: dayLabel.rx.text)
+            .disposed(by: disposeBag)
+        
+        birthDayPicker.rx.date
+            .subscribe(with: self) { owner, date in
+                let component = Calendar.current.dateComponents([.year, .month, .day], from: date)
+                
+                print(component.day, component.month, component.year)
+                
+                owner.year.onNext(component.year!)
+                owner.month.on(.next(component.month!))
+                owner.day.onNext(component.day!)
+            }
+            .disposed(by: disposeBag)
+        
+    }
     
     func configureLayout() {
         view.addSubview(infoLabel)
