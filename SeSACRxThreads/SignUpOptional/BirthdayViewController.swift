@@ -167,9 +167,52 @@ class BirthdayViewController: UIViewController {
             }
             .disposed(by: disposeBag)
         
+        birthDayPicker.rx.date
+            .map { [weak self] date -> Bool in
+                guard let self = self else { return false }
+                return self.isAgeValid(for: date)
+            }
+            .subscribe(onNext: { [weak self] isValid in
+                self?.updateUI(isAgeValid: isValid)
+            })
+            .disposed(by: disposeBag)
+        
+        // nextButton 클릭 이벤트 처리
+        nextButton.rx.tap
+            .bind { [weak self] in
+                let sampleViewController = SampleViewController()
+                let window = UIApplication.shared.windows.first { $0.isKeyWindow }
+                window?.rootViewController = sampleViewController
+            }
+            .disposed(by: disposeBag)
+    }
+    
+    private func isAgeValid(for birthDate: Date) -> Bool {
+        let calendar = Calendar.current
+        let now = Date()
+        let ageComponents = calendar.dateComponents([.year], from: birthDate, to: now)
+        let age = ageComponents.year!
+        return age >= 17
+    }
+    
+    private func updateUI(isAgeValid: Bool) {
+        if isAgeValid {
+            infoLabel.text = "가입 가능한 나이입니다."
+            infoLabel.textColor = .blue
+            nextButton.backgroundColor = .blue
+            nextButton.isEnabled = true
+        } else {
+            infoLabel.text = "만 17세 이상만 가입 가능합니다."
+            infoLabel.textColor = .red
+            nextButton.backgroundColor = .lightGray
+            nextButton.isEnabled = false
+        }
     }
     
     func configureLayout() {
+        nextButton.backgroundColor = .lightGray
+        nextButton.isEnabled = false
+        
         view.addSubview(infoLabel)
         view.addSubview(containerStackView)
         view.addSubview(birthDayPicker)

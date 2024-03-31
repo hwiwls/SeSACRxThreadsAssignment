@@ -28,7 +28,13 @@ class PasswordViewController: UIViewController {
         
         configureLayout()
         
+        nextButton.addTarget(self, action: #selector(nextButtonClicked), for: .touchUpInside)
+        
         bind()
+    }
+    
+    @objc func nextButtonClicked() {
+        navigationController?.pushViewController(PhoneViewController(), animated: true)
     }
     
     func bind() {

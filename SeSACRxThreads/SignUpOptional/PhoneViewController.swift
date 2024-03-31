@@ -30,7 +30,13 @@ class PhoneViewController: UIViewController {
         
         configureLayout()
         
-       bind()
+        nextButton.addTarget(self, action: #selector(nextButtonClicked), for: .touchUpInside)
+        
+        bind()
+    }
+    
+    @objc func nextButtonClicked() {
+        navigationController?.pushViewController(NicknameViewController(), animated: true)
     }
     
     func bind() {
