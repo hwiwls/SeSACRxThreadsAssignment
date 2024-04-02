@@ -30,6 +30,10 @@
 		041280782AF1D14000972552 /* Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041280772AF1D14000972552 /* Resource.swift */; };
 		2E20065D2BB9CB8B0073FB9C /* SampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E20065C2BB9CB8B0073FB9C /* SampleViewController.swift */; };
 		2E2006612BB9CEDA0073FB9C /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 2E2006602BB9CEDA0073FB9C /* Then */; };
+		2EFFFE4C2BBC56220034396C /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFFFE472BBC56220034396C /* SearchViewController.swift */; };
+		2EFFFE4F2BBC56220034396C /* SearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFFFE4B2BBC56220034396C /* SearchTableViewCell.swift */; };
+		2EFFFE522BBC57170034396C /* ShoppingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFFFE512BBC57170034396C /* ShoppingViewController.swift */; };
+		2EFFFE542BBC57230034396C /* ShoppingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFFFE532BBC57230034396C /* ShoppingTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +77,10 @@
 		041280722AEFAD4B00972552 /* NicknameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameViewController.swift; sourceTree = "<group>"; };
 		041280772AF1D14000972552 /* Resource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resource.swift; sourceTree = "<group>"; };
 		2E20065C2BB9CB8B0073FB9C /* SampleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleViewController.swift; sourceTree = "<group>"; };
+		2EFFFE472BBC56220034396C /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		2EFFFE4B2BBC56220034396C /* SearchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTableViewCell.swift; sourceTree = "<group>"; };
+		2EFFFE512BBC57170034396C /* ShoppingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingViewController.swift; sourceTree = "<group>"; };
+		2EFFFE532BBC57230034396C /* ShoppingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,6 +135,9 @@
 		041280222AEF9BAB00972552 /* SeSACRxThreads */ = {
 			isa = PBXGroup;
 			children = (
+				2EFFFE502BBC57040034396C /* Shopping */,
+				2EFFFE4B2BBC56220034396C /* SearchTableViewCell.swift */,
+				2EFFFE472BBC56220034396C /* SearchViewController.swift */,
 				2E20065B2BB9CB810073FB9C /* Sample */,
 				041280532AEF9C1F00972552 /* SignUp */,
 				041280542AEF9C2600972552 /* SignIn */,
@@ -203,6 +214,15 @@
 				2E20065C2BB9CB8B0073FB9C /* SampleViewController.swift */,
 			);
 			path = Sample;
+			sourceTree = "<group>";
+		};
+		2EFFFE502BBC57040034396C /* Shopping */ = {
+			isa = PBXGroup;
+			children = (
+				2EFFFE512BBC57170034396C /* ShoppingViewController.swift */,
+				2EFFFE532BBC57230034396C /* ShoppingTableViewCell.swift */,
+			);
+			path = Shopping;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -346,16 +366,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2EFFFE4C2BBC56220034396C /* SearchViewController.swift in Sources */,
 				041280782AF1D14000972552 /* Resource.swift in Sources */,
 				0412806F2AEFAD2D00972552 /* BirthdayViewController.swift in Sources */,
 				041280652AEFA2F000972552 /* SignTextField.swift in Sources */,
 				0412806C2AEFABFE00972552 /* PasswordViewController.swift in Sources */,
 				041280562AEFA04800972552 /* SignInViewController.swift in Sources */,
+				2EFFFE522BBC57170034396C /* ShoppingViewController.swift in Sources */,
 				041280282AEF9BAB00972552 /* ViewController.swift in Sources */,
 				2E20065D2BB9CB8B0073FB9C /* SampleViewController.swift in Sources */,
+				2EFFFE4F2BBC56220034396C /* SearchTableViewCell.swift in Sources */,
 				041280632AEFA0CE00972552 /* PointButton.swift in Sources */,
 				041280242AEF9BAB00972552 /* AppDelegate.swift in Sources */,
 				041280732AEFAD4B00972552 /* NicknameViewController.swift in Sources */,
+				2EFFFE542BBC57230034396C /* ShoppingTableViewCell.swift in Sources */,
 				0412806A2AEFA91E00972552 /* SignUpViewController.swift in Sources */,
 				041280712AEFAD3D00972552 /* PhoneViewController.swift in Sources */,
 				041280262AEF9BAB00972552 /* SceneDelegate.swift in Sources */,
