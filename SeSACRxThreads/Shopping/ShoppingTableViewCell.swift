@@ -37,7 +37,6 @@ class ShoppingTableViewCell: UITableViewCell {
         backgroundColor = .lightGray
         
         self.selectionStyle = .none
-        configure()
     }
     
     required init?(coder: NSCoder) {

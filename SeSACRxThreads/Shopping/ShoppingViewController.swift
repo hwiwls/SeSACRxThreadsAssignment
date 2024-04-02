@@ -12,6 +12,8 @@ import RxCocoa
 
 struct ShoppingItem {
     var name: String
+    var isChecked: Bool
+    var isStarred: Bool
 }
 
 class ShoppingViewController: UIViewController {
@@ -38,9 +40,9 @@ class ShoppingViewController: UIViewController {
      }()
    
     var items = BehaviorSubject<[ShoppingItem]>(value: [
-        ShoppingItem(name: "그립톡"),
-        ShoppingItem(name: "핸드폰케이스"),
-        ShoppingItem(name: "소금빵")
+        ShoppingItem(name: "그립톡", isChecked: false, isStarred: false),
+        ShoppingItem(name: "핸드폰케이스", isChecked: false, isStarred: false),
+        ShoppingItem(name: "소금빵", isChecked: false, isStarred: false)
     ])
      
     let disposeBag = DisposeBag()
@@ -65,7 +67,7 @@ class ShoppingViewController: UIViewController {
         addButton.rx.tap
             .subscribe(with: self, onNext: { owner, _ in
                 guard let newItemName = owner.addTextField.text else { return }
-                let newItem = ShoppingItem(name: newItemName)
+                let newItem = ShoppingItem(name: newItemName, isChecked: false, isStarred: false)
                 var currentItems = try! owner.items.value()
                 currentItems.append(newItem)
                 owner.items.onNext(currentItems)
@@ -79,6 +81,7 @@ class ShoppingViewController: UIViewController {
                 owner.items.onNext(currentItems)
             })
             .disposed(by: disposeBag)
+        
         
     }
     
