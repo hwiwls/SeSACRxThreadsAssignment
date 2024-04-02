@@ -10,6 +10,10 @@ import SnapKit
 import RxSwift
 import RxCocoa
 
+struct ShoppingItem {
+    var name: String
+}
+
 class ShoppingViewController: UIViewController {
     
     let addTextField = UITextField().then {
@@ -33,9 +37,11 @@ class ShoppingViewController: UIViewController {
        return view
      }()
    
-    var items = PublishSubject<[String]>()
-    
-    var shoppingList = [String]()
+    var items = BehaviorSubject<[ShoppingItem]>(value: [
+        ShoppingItem(name: "그립톡"),
+        ShoppingItem(name: "핸드폰케이스"),
+        ShoppingItem(name: "소금빵")
+    ])
      
     let disposeBag = DisposeBag()
 
@@ -51,26 +57,26 @@ class ShoppingViewController: UIViewController {
         items
             .bind(to: tableView.rx.items(cellIdentifier: ShoppingTableViewCell.identifier, cellType: ShoppingTableViewCell.self)) { (row, element, cell) in
                 
-                cell.appNameLabel.text = "\(element)"
+                cell.appNameLabel.text = "\(element.name)"
 
             }
             .disposed(by: disposeBag)
         
         addButton.rx.tap
             .subscribe(with: self, onNext: { owner, _ in
-                guard let newItem = owner.addTextField.text else {
-                    return
-                }
-                owner.shoppingList.append(newItem)
-                owner.items.onNext(owner.shoppingList)
+                guard let newItemName = owner.addTextField.text else { return }
+                let newItem = ShoppingItem(name: newItemName)
+                var currentItems = try! owner.items.value()
+                currentItems.append(newItem)
+                owner.items.onNext(currentItems)
                 owner.addTextField.text = ""
             })
-            .disposed(by: disposeBag)
         
         tableView.rx.itemDeleted
             .subscribe(with: self, onNext: { owner, indexPath in
-                owner.shoppingList.remove(at: indexPath.row)
-                owner.items.onNext(owner.shoppingList)
+                var currentItems = try! owner.items.value()
+                currentItems.remove(at: indexPath.row)
+                owner.items.onNext(currentItems)
             })
             .disposed(by: disposeBag)
         
