@@ -34,6 +34,7 @@ class ShoppingViewController: UIViewController {
      }()
    
     var items = PublishSubject<[String]>()
+    
     var shoppingList = [String]()
      
     let disposeBag = DisposeBag()
@@ -50,7 +51,7 @@ class ShoppingViewController: UIViewController {
         items
             .bind(to: tableView.rx.items(cellIdentifier: ShoppingTableViewCell.identifier, cellType: ShoppingTableViewCell.self)) { (row, element, cell) in
                 
-                cell.appNameLabel.text = "test \(element)"
+                cell.appNameLabel.text = "\(element)"
 
             }
             .disposed(by: disposeBag)
@@ -63,6 +64,13 @@ class ShoppingViewController: UIViewController {
                 owner.shoppingList.append(newItem)
                 owner.items.onNext(owner.shoppingList)
                 owner.addTextField.text = ""
+            })
+            .disposed(by: disposeBag)
+        
+        tableView.rx.itemDeleted
+            .subscribe(with: self, onNext: { owner, indexPath in
+                owner.shoppingList.remove(at: indexPath.row)
+                owner.items.onNext(owner.shoppingList)
             })
             .disposed(by: disposeBag)
         
