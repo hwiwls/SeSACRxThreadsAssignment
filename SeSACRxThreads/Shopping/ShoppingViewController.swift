@@ -32,10 +32,9 @@ class ShoppingViewController: UIViewController {
         view.separatorStyle = .none
        return view
      }()
-      
-    var data = ["A", "B", "C", "AB", "D", "ABC", "BBB", "EC", "SA", "AAAB", "ED", "F", "G", "H"]
    
-    lazy var items = BehaviorSubject(value: data)
+    var items = PublishSubject<[String]>()
+    var shoppingList = [String]()
      
     let disposeBag = DisposeBag()
 
@@ -56,17 +55,17 @@ class ShoppingViewController: UIViewController {
             }
             .disposed(by: disposeBag)
         
-       
+        addButton.rx.tap
+            .subscribe(with: self, onNext: { owner, _ in
+                guard let newItem = owner.addTextField.text else {
+                    return
+                }
+                owner.shoppingList.append(newItem)
+                owner.items.onNext(owner.shoppingList)
+                owner.addTextField.text = ""
+            })
+            .disposed(by: disposeBag)
         
-    }
-    
-    @objc func plusButtonClicked() {
-        let sample = ["A", "B", "C", "D", "E"]
-        
-        data.append(sample.randomElement()!)
-        
-        items.onNext(data)
-
     }
     
     private func configView() {
@@ -82,7 +81,8 @@ class ShoppingViewController: UIViewController {
         }
         
         addButton.snp.makeConstraints {
-            $0.trailing.top.equalTo(view.safeAreaLayoutGuide).inset(20)
+            $0.top.equalTo(view.safeAreaLayoutGuide)
+            $0.trailing.equalTo(view.safeAreaLayoutGuide).inset(20)
             $0.width.equalTo(60)
             $0.height.equalTo(40)
         }
