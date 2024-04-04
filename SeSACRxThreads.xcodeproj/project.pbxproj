@@ -30,10 +30,12 @@
 		041280782AF1D14000972552 /* Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041280772AF1D14000972552 /* Resource.swift */; };
 		2E20065D2BB9CB8B0073FB9C /* SampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E20065C2BB9CB8B0073FB9C /* SampleViewController.swift */; };
 		2E2006612BB9CEDA0073FB9C /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 2E2006602BB9CEDA0073FB9C /* Then */; };
+		2EE50C172BBF00AA007608F2 /* ShoppingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE50C162BBF00AA007608F2 /* ShoppingViewModel.swift */; };
 		2EFFFE4C2BBC56220034396C /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFFFE472BBC56220034396C /* SearchViewController.swift */; };
 		2EFFFE4F2BBC56220034396C /* SearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFFFE4B2BBC56220034396C /* SearchTableViewCell.swift */; };
 		2EFFFE522BBC57170034396C /* ShoppingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFFFE512BBC57170034396C /* ShoppingViewController.swift */; };
 		2EFFFE542BBC57230034396C /* ShoppingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFFFE532BBC57230034396C /* ShoppingTableViewCell.swift */; };
+		2EFFFE572BBC7D1F0034396C /* ShoppingDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFFFE562BBC7D1F0034396C /* ShoppingDataModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,10 +79,12 @@
 		041280722AEFAD4B00972552 /* NicknameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameViewController.swift; sourceTree = "<group>"; };
 		041280772AF1D14000972552 /* Resource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resource.swift; sourceTree = "<group>"; };
 		2E20065C2BB9CB8B0073FB9C /* SampleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleViewController.swift; sourceTree = "<group>"; };
+		2EE50C162BBF00AA007608F2 /* ShoppingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingViewModel.swift; sourceTree = "<group>"; };
 		2EFFFE472BBC56220034396C /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		2EFFFE4B2BBC56220034396C /* SearchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTableViewCell.swift; sourceTree = "<group>"; };
 		2EFFFE512BBC57170034396C /* ShoppingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingViewController.swift; sourceTree = "<group>"; };
 		2EFFFE532BBC57230034396C /* ShoppingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingTableViewCell.swift; sourceTree = "<group>"; };
+		2EFFFE562BBC7D1F0034396C /* ShoppingDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingDataModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -221,6 +225,8 @@
 			children = (
 				2EFFFE512BBC57170034396C /* ShoppingViewController.swift */,
 				2EFFFE532BBC57230034396C /* ShoppingTableViewCell.swift */,
+				2EFFFE562BBC7D1F0034396C /* ShoppingDataModel.swift */,
+				2EE50C162BBF00AA007608F2 /* ShoppingViewModel.swift */,
 			);
 			path = Shopping;
 			sourceTree = "<group>";
@@ -367,6 +373,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				2EFFFE4C2BBC56220034396C /* SearchViewController.swift in Sources */,
+				2EFFFE572BBC7D1F0034396C /* ShoppingDataModel.swift in Sources */,
+				2EE50C172BBF00AA007608F2 /* ShoppingViewModel.swift in Sources */,
 				041280782AF1D14000972552 /* Resource.swift in Sources */,
 				0412806F2AEFAD2D00972552 /* BirthdayViewController.swift in Sources */,
 				041280652AEFA2F000972552 /* SignTextField.swift in Sources */,
