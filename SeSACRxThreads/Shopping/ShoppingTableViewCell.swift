@@ -12,6 +12,9 @@ import RxSwift
 import RxCocoa
 
 class ShoppingTableViewCell: UITableViewCell {
+    
+    var starButtonTap: (() -> Void)?
+    var checkButtonTap: (() -> Void)?
 
     static let identifier = "ShoppingTableViewCell"
     
@@ -31,17 +34,29 @@ class ShoppingTableViewCell: UITableViewCell {
     let starBtn = UIButton().then {
         $0.setImage(UIImage(systemName: "star")?.withRenderingMode(.alwaysOriginal).withTintColor(.black), for: .normal)
     }
+    
      
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         backgroundColor = .lightGray
         
         self.selectionStyle = .none
-        configure()
+        
+        starBtn.addTarget(self, action: #selector(starTapped), for: .touchUpInside)
+        checkBtn.addTarget(self, action: #selector(checkTapped), for: .touchUpInside)
+        
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    @objc private func starTapped() {
+        starButtonTap?()
+    }
+
+    @objc private func checkTapped() {
+        checkButtonTap?()
     }
     
     override func prepareForReuse() {
@@ -81,5 +96,5 @@ class ShoppingTableViewCell: UITableViewCell {
             $0.size.equalTo(20)
         }
     }
-
+    
 }

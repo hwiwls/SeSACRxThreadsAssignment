@@ -12,6 +12,14 @@ import RxCocoa
 
 class ShoppingViewController: UIViewController {
     
+     let disposeBag = DisposeBag()
+     
+     private var viewModel = ShoppingViewModel()
+    
+    private let starTapSubject = PublishSubject<IndexPath>()
+    private let checkTapSubject = PublishSubject<IndexPath>()
+
+    
     let addTextField = UITextField().then {
         $0.backgroundColor = .lightGray
         $0.borderStyle = .roundedRect
@@ -32,52 +40,51 @@ class ShoppingViewController: UIViewController {
         view.separatorStyle = .none
        return view
      }()
-   
-    var items = BehaviorSubject<[ShoppingDataModel]>(value: [
-        ShoppingDataModel(name: "그립톡", isChecked: false, isStarred: false),
-        ShoppingDataModel(name: "핸드폰케이스", isChecked: false, isStarred: false),
-        ShoppingDataModel(name: "소금빵", isChecked: false, isStarred: false)
-    ])
-     
-    let disposeBag = DisposeBag()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         view.backgroundColor = .white
         configView()
-        bind()
+//        bind()
+        newBind()
     }
     
-    func bind() {
-        items
-            .bind(to: tableView.rx.items(cellIdentifier: ShoppingTableViewCell.identifier, cellType: ShoppingTableViewCell.self)) { (row, element, cell) in
-                
-                cell.appNameLabel.text = "\(element.name)"
+    func newBind() {
+        
 
-            }
-            .disposed(by: disposeBag)
-        
-        addButton.rx.tap
-            .subscribe(with: self, onNext: { owner, _ in
-                guard let newItemName = owner.addTextField.text else { return }
-                let newItem = ShoppingDataModel(name: newItemName, isChecked: false, isStarred: false)
-                var currentItems = try! owner.items.value()
-                currentItems.append(newItem)
-                owner.items.onNext(currentItems)
-                owner.addTextField.text = ""
-            })
-        
-        tableView.rx.itemDeleted
-            .subscribe(with: self, onNext: { owner, indexPath in
-                var currentItems = try! owner.items.value()
-                currentItems.remove(at: indexPath.row)
-                owner.items.onNext(currentItems)
-            })
-            .disposed(by: disposeBag)
-        
         
     }
+    
+//    func bind() {
+//        items
+//            .bind(to: tableView.rx.items(cellIdentifier: ShoppingTableViewCell.identifier, cellType: ShoppingTableViewCell.self)) { (row, element, cell) in
+//                
+//                cell.appNameLabel.text = "\(element.name)"
+//
+//            }
+//            .disposed(by: disposeBag)
+//        
+//        addButton.rx.tap
+//            .subscribe(with: self, onNext: { owner, _ in
+//                guard let newItemName = owner.addTextField.text else { return }
+//                let newItem = ShoppingDataModel(name: newItemName, isChecked: false, isStarred: false)
+//                var currentItems = try! owner.items.value()
+//                currentItems.append(newItem)
+//                owner.items.onNext(currentItems)
+//                owner.addTextField.text = ""
+//            })
+//        
+//        tableView.rx.itemDeleted
+//            .subscribe(with: self, onNext: { owner, indexPath in
+//                var currentItems = try! owner.items.value()
+//                currentItems.remove(at: indexPath.row)
+//                owner.items.onNext(currentItems)
+//            })
+//            .disposed(by: disposeBag)
+//        
+//        
+//    }
     
     private func configView() {
         view.addSubview(addTextField)
